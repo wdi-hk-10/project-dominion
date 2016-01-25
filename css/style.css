@@ -10,4 +10,25 @@ header {
 
 .container {
   align: center;
+  max-width: 1100px;
+}
+
+.reset-game {
+  float: right;
+}
+
+#cardSelection {
+  background-color: #1e2d82;
+  height: 400px
+
+}
+
+#playerHands {
+  background-color: #1e2d82;
+  height: 250px;
+}
+
+.signature {
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
