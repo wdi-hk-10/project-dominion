@@ -11,7 +11,7 @@
   </head>
 
   <body>
-    <section class="cover-page">
+    <section id="cover-page">
       <div class="cover-screen">
         <header class="container-fluid">
           <img src="http://wiki.dominionstrategy.com/images/thumb/5/50/DomimionLogo.jpg/450px-DomimionLogo.jpg"></a>
@@ -33,8 +33,54 @@
       </div>
     </section>
 
-    <section class="game-page">
+    <section id="game-div" style="display: none;">
+      <header class="container">
+        <h1><img src="http://wiki.dominionstrategy.com/images/thumb/5/50/DomimionLogo.jpg/450px-DomimionLogo.jpg"></h1>
+        <div class="row">
+          <div class="col-xs-12">
+            <ul class="nav nav-tabs">
+              <li class="active"></li>
+              <li class></li>
+              <li class="resetGame"></li>
+            </ul>
+            <div class="tab-content">
+              <div id="game" class="tab-pane fade active in"></div>
+              <div id="rules" class="tab-pane fade">
+              <!--All of the rules are copied directly from http://boardgames.about.com/od/Dominion/a/How-to-Play-Dominion.htm, as I don't want to waste time on that instead of coding.-->
+                <p>Dominion is, thematically, a game about monarchs attempting to expand their kingdom. Mechanically, it is a deck-building game where players buy cards each turn to add to their decks, slowly growing more powerful as the game progresses. Here's a quick guide to the basic rules of Dominion.</p>
+                <br>
+                <p>This game uses 3 types of cards:</p>
+                <p>Treasure cards, which let you buy things.</p>
+                <p>Victory cards, which count towards your score at the end of the game.</p>
+                <p>Action cards, which let you perform special actions during your turn.  This is what makes Dominion special, as each game uses a different selection of 10 action cards randomly selected from more than 25 options.</p>
+                <br>
+                <p>The goal of the game is simple:</p>
+                <p>To have the most victory points when the game ends.</p>
+                <br>
+                <p>Each player receives 7 copper and 3 estates as a starting deck.  Each player then shuffles their deck, draws five cards, and the game begins with whomever is chosen as the starting player.</p>
+                <br>
+                <p>How to Play</p>
+                <p>Your turn consists of four phases:</p>
+                <p>A)ction: You may play one action card from your hand. Follow the directions on the card, which may instruct you to draw additional cards, gain spending power for your upcoming Buy phase, or give you extra actions to play additional action cards.</p>
+                <p>B)uy: You may purchase any one card in a pile on the table.  To do so, play treasure cards from your hand until the value is at least as high as the purchase price of the card you want to buy.</p>
+                <p>C)leanup: The card you purchased, all cards that you played, and any cards remaining in your hand, are all placed in your discard pile.</p>
+                <p>D)raw: Draw five cards from your deck to replenlish your hand. If there are not enough cards in your deck, shuffle your discard pile, and it becomes the base of your draw pile.</p>
+                <br>
+                <p>End Game</p>
+                <p>The game ends when the last Province is bought, or when three piles of Action cards are empty.  Players count the victory points in their decks, and the player with the most points wins! In case of a tie, whoever went first loses.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+      <section id="cardSelection" class="container">
+        <div id="treasureField" class=""></div>
+        <div id="victoryField" class=""></div>
+        <div id="actionField" class=""></div>
+      </section>
+      <section id="playerHands">
 
+      </section>
     </section>
 
   </body>
