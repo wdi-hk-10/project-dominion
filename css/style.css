@@ -23,9 +23,9 @@ header {
 }
 
 .card-image {
+  margin-top: 24px;
   max-height: 100%;
   max-width: 100%;
-  margin-top: 24px;
 }
 
 #cardSelection {
@@ -50,8 +50,6 @@ header {
       height: 650px;
     }
 
-
-
 #playerHands {
   background-color: #1e2d82;
   height: 500px;
@@ -69,11 +67,18 @@ header {
       margin-bottom: 10px;
       height: 85px;
       background-color: black;
+      color: red;
     }
 
   .draw-discard {
     margin-top: 25px;
     background-color: #4385c2;
+  }
+
+  .player-hand {
+    margin-top: 25px;
+    height: 400px;
+    background-color: #02194a;
   }
 
 .signature {
