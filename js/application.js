@@ -9,10 +9,54 @@ $(document).ready(function(){
     });
   });
 
+  function card() {
+
+  }
+
+  function drawPile() {
+  // Create an empty array of cards.
+    this.cards = new Array();
+
+    this.makeDeck  = stackMakeDeck;
+    this.shuffle   = stackShuffle;
+    this.deal      = stackDeal;
+    this.draw      = stackDraw;
+    this.addCard   = stackAddCard;
+    this.combine   = stackCombine;
+    this.cardCount = stackCardCount;
+  }
+
+  function stackMakeDeck() {
+
+  }
+
+  function stackShuffle() {
+
+  }
+
+  function stackDeal() {
+
+  }
+
+  function stackDraw() {
+
+  }
+
+  function stackAddCard() {
+
+  }
+
+  function stackCombine() {
+
+  }
+
+  function stackCardCount() {
+
+  }
+
 });
 
-{
-  "cards": {
+var cards = {
     "Copper": {
       "supply": 60,
       "cost": 0,
@@ -162,5 +206,5 @@ $(document).ready(function(){
 
       }
     }
-  }
 }
+

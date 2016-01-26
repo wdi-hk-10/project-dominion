@@ -11,10 +11,10 @@
   </head>
 
   <body>
-    <section id="cover-page">
+    <section id="cover-page" style="display: none;"><!--Remember to put this back on the game-div section later-->
       <div class="cover-screen">
         <header class="container-fluid">
-          <img src="http://wiki.dominionstrategy.com/images/thumb/5/50/DomimionLogo.jpg/450px-DomimionLogo.jpg"></a>
+          <img src="images/450px-DomimionLogo.jpg"></a>
         </header>
         <div class="container">
         <br>
@@ -33,9 +33,9 @@
       </div>
     </section>
 
-    <section id="game-div" style="display: none;">
+    <section id="game-div">
       <header class="container">
-        <h1><img src="http://wiki.dominionstrategy.com/images/thumb/5/50/DomimionLogo.jpg/450px-DomimionLogo.jpg"></h1>
+        <h1><img src="images/450px-DomimionLogo.jpg"></h1>
         <div class="row">
           <div class="col-xs-12">
             <ul class="nav nav-tabs">
@@ -82,15 +82,31 @@
       </header>
       <!--This section is mostly unformatted, since I'm not sure of the best alignment and arrangement yet.-->
       <section id="cardSelection" class="container" align="center">
-        <div id="staticCards" class="container col-xs-3">
+        <div id="staticCards" class="container cardField col-xs-3">
           <div id="treasureField" class="col-xs-6">
-            <div id="copper" class="card-slot"></div>
-            <div id="silver" class="card-slot"></div>
-            <div id="gold" class="card-slot"></div>
+            <div id="copper" class="card-slot">
+              <img src="images/Treasure/376px-Copper.jpg" class="card-image">
+            </div>
+            <div id="silver" class="card-slot">
+              <img src="images/Treasure/375px-Silver.jpg" class="card-image">
+            </div>
+            <div id="gold" class="card-slot">
+              <img src="images/Treasure/377px-Gold.jpg" class="card-image">
+            </div>
           </div>
-          <div id="victoryField" class="col-xs-6"></div>
+          <div id="victoryField" class="col-xs-6">
+            <div id="estate" class="card-slot">
+              <img src="images/Victory/377px-Estate.jpg" class="card-image">
+            </div>
+            <div id="duchy" class="card-slot">
+              <img src="images/Victory/375px-Duchy.jpg" class="card-image">
+            </div>
+            <div id="province" class="card-slot">
+              <img src="images/Victory/379px-Province.jpg" class="card-image">
+            </div>
+          </div>
         </div>
-        <div id="actionField" class="col-xs-9"></div>
+        <div id="actionField" class="cardField col-xs-9"></div>
       </section>
       <section id="playerHands" class="container">
         <ul class="nav nav-tabs">
@@ -104,10 +120,10 @@
         <div class="tab-content">
           <div id="player1" class="tab-pane fade active in">
             <div class="turn-order col-xs-2">
-              <div class="turnA"></div>
-              <div class="turnB"></div>
-              <div class="turnC"></div>
-              <div class="turnD"></div>
+              <div class="turn-box turnA"></div>
+              <div class="turn-box turnB"></div>
+              <div class="turn-box turnC"></div>
+              <div class="turn-box turnD"></div>
             </div>
             <div class="draw-discard col-xs-1">
               <div class="draw card-slot"></div>
@@ -117,10 +133,10 @@
           </div>
           <div id="player2" class="tab-pane fade">
             <div class="turn-order col-xs-2">
-              <div class="turnA"></div>
-              <div class="turnB"></div>
-              <div class="turnC"></div>
-              <div class="turnD"></div>
+              <div class="turn-box turnA">Actions:</div>
+              <div class="turn-box turnB">Buy:</div>
+              <div class="turn-box turnC">Cleanup:</div>
+              <div class="turn-box turnD">Draw:</div>
             </div>
             <div class="draw-discard col-xs-1">
               <div class="draw card-slot"></div>
