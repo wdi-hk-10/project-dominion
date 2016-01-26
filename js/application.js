@@ -9,6 +9,22 @@ $(document).ready(function(){
     });
   });
 
+  var playerTurn=true;
+  var phase=1;
+  $('.experiment').on('click', function(){
+    phase--;
+    if(phase===0){
+      if(playerTurn===true){
+        $('#playerHands a:last').tab('show');
+        playerTurn=false;
+      }else{
+        $('#playerHands a:first').tab('show');
+        playerTurn=true;
+      }
+    }
+    phase=1
+  });
+
   function card() {
 
   }
