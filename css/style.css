@@ -20,10 +20,10 @@ header {
 .card-slot {
   height: 200px;
   background-color: #528fd2;
+  display: block;
 }
 
 .card-image {
-  margin-top: 24px;
   max-height: 100%;
   max-width: 100%;
 }
@@ -42,13 +42,20 @@ header {
   background-color: #4385c2;
 }
 
-#actionField {
-  background-color: #4385c2;
-}
+  #treasureField {
+    height: 650px;
+    padding-top: 15px;
+  }
 
-    #treasureField {
-      height: 650px;
-    }
+  #victoryField {
+    height: 650px;
+    padding-top: 15px;
+  }
+
+  #actionField {
+  background-color: #4385c2;
+  padding-top: 15px
+  }
 
 #playerHands {
   background-color: #1e2d82;

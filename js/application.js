@@ -9,10 +9,70 @@ $(document).ready(function(){
     });
   });
 
+  $('button').prop('disabled', true);
+  $('#reset-game').removeAttr('disabled');
+  $('.start-turn').removeAttr('disabled');
+
+  // Button activation sequence
+  $('.start-turn').on('click', function(){
+    console.log("Start action phase");
+    $('.start-turn').prop('disabled', true);
+    $('.play-action').removeAttr('disabled');
+    $('.pass-action').removeAttr('disabled');
+  });
+
+  $('.play-action').on('click', function(){
+    console.log("Play an action card");
+    $('.play-action').prop('disabled', true);
+    $('.pass-action').prop('disabled', true);
+    $('.play-buy').removeAttr('disabled');
+    $('.pass-buy').removeAttr('disabled');
+  });
+
+  $('.pass-action').on('click', function(){
+    console.log("Skip action card");
+    $('.play-action').prop('disabled', true);
+    $('.pass-action').prop('disabled', true);
+    $('.play-buy').removeAttr('disabled');
+    $('.pass-buy').removeAttr('disabled');
+  });
+
+  $('.play-buy').on('click', function(){
+    console.log("Buy a card");
+    $('.play-buy').prop('disabled', true);
+    $('.pass-buy').prop('disabled', true);
+    // $('.buy-button').removeAttr('disabled');
+    $('.play-cleanup').removeAttr('disabled');
+  });
+
+  $('.pass-buy').on('click', function(){
+    console.log("Don't buy a card");
+    $('.play-buy').prop('disabled', true);
+    $('.pass-buy').prop('disabled', true);
+    $('.play-cleanup').removeAttr('disabled');
+  });
+
+  // $('.buy-button').on('click', function(){
+
+  // });
+
+  $('.play-cleanup').on('click', function(){
+    console.log("Discard your hand");
+    $('.play-cleanup').prop('disabled', true);
+    $('.play-draw').removeAttr('disabled');
+  });
+
+  $('.play-draw').on('click', function(){
+    console.log("Draw five new cards");
+    $('.play-draw').prop('disabled', true);
+    $('.end-turn').removeAttr('disabled');
+  });
+
   // Prototype player-turn switching function
   var playerTurn=true;
   var phase=1;
   $('.end-turn').on('click', function(){
+    phase--;
     if(phase<=0){
       if(playerTurn===true){
         $('#playerHands a:last').tab('show');
@@ -21,6 +81,8 @@ $(document).ready(function(){
         $('#playerHands a:first').tab('show');
         playerTurn=true;
       }
+      $('.end-turn').prop('disabled', true);
+      $('.start-turn').removeAttr('disabled');
     }else{
       alert("You have not finished your turn yet!");
       alert(phase);
@@ -33,24 +95,20 @@ $(document).ready(function(){
   var buyCount=1;
   var treasureCount=0;
 
-  $('.start-turn').on('click', function(){
-    console.log("Start action phase");
-    actionPhase();
-  });
   // Prototype action-turn function
-  var actionPhase = function(){
-    console.log("Test action");
-    $('.player-hand').children().on('click', function(){
-      //call function
-      actionCount--;
-      console.log(actionCount);
-    });
-    if(actionCount<=0){
-      phase--;
-      console.log(phase);
-    }else{
-    }
-  }
+  // var actionPhase = function(){
+  //   console.log("Test action");
+  //   $('.player-hand').children().on('click', function(){
+  //     //call function
+  //     actionCount--;
+  //     console.log(actionCount);
+  //   });
+  //   if(actionCount<=0){
+  //     phase--;
+  //     console.log(phase);
+  //   }else{
+  //   }
+  // }
 
   // Prototype buy-turn function
   // var buyPhase = function(){
@@ -65,66 +123,67 @@ $(document).ready(function(){
   // }
 
   // Prototype cleanup function
-  var cleanupPhase = function(){
-    // move all cards in hand to discard pile
-    phase--;
-    drawPhase();
-  }
+  // var cleanupPhase = function(){
+  //   // move all cards in hand to discard pile
+  //   phase--;
+  //   drawPhase();
+  // }
 
-  // Prototype draw function
-  var drawPhase = function(){
-    // if (draw pile cards >= 5)
-      // draw 5 cards from draw pile
-    // else
-      // stackCombine(draw & discard) & assign to draw
-      // draw 5 cards from draw pile
-    phase--;
-  }
+  // // Prototype draw function
+  // var drawPhase = function(){
+  //   // if (draw pile cards >= 5)
+  //     // draw 5 cards from draw pile
+  //   // else
+  //     // stackCombine(draw & discard) & assign to draw
+  //     // draw 5 cards from draw pile
+  //   phase--;
+  // }
 
-  function card() {
+  // function card(name, suit){
+  //   this.name = name;
+  //   this.suit = suit;
+  // }
 
-  }
+  // function drawPile() {
+  // // Create an empty array of cards.
+  //   this.cards = new Array();
 
-  function drawPile() {
-  // Create an empty array of cards.
-    this.cards = new Array();
+  //   this.makeDeck  = stackMakeDeck;
+  //   this.shuffle   = stackShuffle;
+  //   this.deal      = stackDeal;
+  //   this.draw      = stackDraw;
+  //   this.addCard   = stackAddCard;
+  //   this.combine   = stackCombine;
+  //   this.cardCount = stackCardCount;
+  // }
 
-    this.makeDeck  = stackMakeDeck;
-    this.shuffle   = stackShuffle;
-    this.deal      = stackDeal;
-    this.draw      = stackDraw;
-    this.addCard   = stackAddCard;
-    this.combine   = stackCombine;
-    this.cardCount = stackCardCount;
-  }
+  // function stackMakeDeck() {
 
-  function stackMakeDeck() {
+  // }
 
-  }
+  // function stackShuffle() {
 
-  function stackShuffle() {
+  // }
 
-  }
+  // function stackDeal() {
 
-  function stackDeal() {
+  // }
 
-  }
+  // function stackDraw() {
 
-  function stackDraw() {
+  // }
 
-  }
+  // function stackAddCard() {
 
-  function stackAddCard() {
+  // }
 
-  }
+  // function stackCombine() {
 
-  function stackCombine() {
+  // }
 
-  }
+  // function stackCardCount() {
 
-  function stackCardCount() {
-
-  }
+  // }
 
 });
 
