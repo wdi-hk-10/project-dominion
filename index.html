@@ -120,14 +120,22 @@
         <div class="tab-content">
           <div id="player1" class="tab-pane fade active in">
             <div class="turn-order col-xs-2">
-              <div class="turn-box turnA">Actions:
-                <button class="pass-phase btn btn-default">Pass</button>
+              <button class="start-turn btn btn-default active">Start Turn</button>
+              <div class="turn-box turnA">
+                <button class="play-action btn btn-default disabled">Action</button>
+                <button class="pass-action btn btn-default disabled">Pass</button>
               </div>
-              <div class="turn-box turnB">Buy:
-                <button class="pass-phase btn btn-default">Pass</button>
+              <div class="turn-box turnB">
+                <button class="play-buy btn btn-default disabled">Buy</button>
+                <button class="pass-buy btn btn-default disabled">Pass</button>
+              </div>"
+              <div class="turn-box turnC">
+                <button class="play-cleanup btn btn-default disabled">Clean Up</button>
               </div>
-              <div class="turn-box turnC">Cleanup:</div>
-              <div class="turn-box turnD">Draw:</div>
+              <div class="turn-box turnD">
+                <button class="play-draw btn btn-default disabled">Draw</button>
+              </div>
+              <button class="end-turn btn btn-default disabled">End Turn</button>
             </div>
             <div class="draw-discard col-xs-1">
               <div class="draw card-slot"></div>
@@ -139,14 +147,22 @@
           </div>
           <div id="player2" class="tab-pane fade">
             <div class="turn-order col-xs-2">
-              <div class="turn-box turnA">Actions:
-                <button class="pass-phase btn btn-default">Pass</button>
+              <button class="start-turn btn btn-default active">Start Turn</button>
+              <div class="turn-box turnA">
+                <button class="play-action btn btn-default disabled">Action</button>
+                <button class="pass-action btn btn-default disabled">Pass</button>
               </div>
-              <div class="turn-box turnB">Buy:
-                <button class="pass-phase btn btn-default">Pass</button>
+              <div class="turn-box turnB">
+                <button class="play-buy btn btn-default disabled">Buy</button>
+                <button class="pass-buy btn btn-default disabled">Pass</button>
               </div>
-              <div class="turn-box turnC">Cleanup:</div>
-              <div class="turn-box turnD">Draw:</div>
+              <div class="turn-box turnC">
+                <button class="play-cleanup btn btn-default disabled">Clean Up</button>
+              </div>
+              <div class="turn-box turnD">
+                <button class="play-draw btn btn-default disabled">Draw</button>
+              </div>
+              <button class="end-turn btn btn-default disabled">End Turn</button>
             </div>
             <div class="draw-discard col-xs-1">
               <div class="draw card-slot"></div>

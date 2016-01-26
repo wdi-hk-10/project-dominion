@@ -9,11 +9,11 @@ $(document).ready(function(){
     });
   });
 
+  // Prototype player-turn switching function
   var playerTurn=true;
   var phase=1;
-  $('.experiment').on('click', function(){
-    phase--;
-    if(phase===0){
+  $('.end-turn').on('click', function(){
+    if(phase<=0){
       if(playerTurn===true){
         $('#playerHands a:last').tab('show');
         playerTurn=false;
@@ -21,9 +21,65 @@ $(document).ready(function(){
         $('#playerHands a:first').tab('show');
         playerTurn=true;
       }
+    }else{
+      alert("You have not finished your turn yet!");
+      alert(phase);
     }
     phase=1
   });
+
+  // Prototype turn-order function
+  var actionCount=1;
+  var buyCount=1;
+  var treasureCount=0;
+
+  $('.start-turn').on('click', function(){
+    console.log("Start action phase");
+    actionPhase();
+  });
+  // Prototype action-turn function
+  var actionPhase = function(){
+    console.log("Test action");
+    $('.player-hand').children().on('click', function(){
+      //call function
+      actionCount--;
+      console.log(actionCount);
+    });
+    if(actionCount<=0){
+      phase--;
+      console.log(phase);
+    }else{
+    }
+  }
+
+  // Prototype buy-turn function
+  // var buyPhase = function(){
+  //   while (buyCount > 0){
+  //     $('#cardSelection').children().on('click', function(){
+  //       //call function
+  //       buyCount--;
+  //     });
+  //   }
+  //   phase--;
+  //   cleanupPhase();
+  // }
+
+  // Prototype cleanup function
+  var cleanupPhase = function(){
+    // move all cards in hand to discard pile
+    phase--;
+    drawPhase();
+  }
+
+  // Prototype draw function
+  var drawPhase = function(){
+    // if (draw pile cards >= 5)
+      // draw 5 cards from draw pile
+    // else
+      // stackCombine(draw & discard) & assign to draw
+      // draw 5 cards from draw pile
+    phase--;
+  }
 
   function card() {
 
@@ -82,14 +138,14 @@ var cards = {
     },
     "treasureValue": 1
   },
-  "Silver": {
-    "supply": 40,
-    "cost": 3,
-    "type": {
-      "Treasure": true
-    },
-    "treasureValue": 2
-  }// ,
+  // "Silver": {
+  //   "supply": 40,
+  //   "cost": 3,
+  //   "type": {
+  //     "Treasure": true
+  //   },
+  //   "treasureValue": 2
+  // },
   // "Gold": {
   //   "supply": 30,
   //   "cost": 6,
@@ -98,14 +154,14 @@ var cards = {
   //   },
   //   "treasureValue": 3
   // },
-  // "Estate": {
-  //   "supply": 8,
-  //   "cost": 2,
-  //   "type": {
-  //     "Victory": true
-  //   },
-  //   "victoryValue": 1
-  // },
+  "Estate": {
+    "supply": 8,
+    "cost": 2,
+    "type": {
+      "Victory": true
+    },
+    "victoryValue": 1
+  },
   // "Duchy": {
   //   "supply": 8,
   //   "cost": 5,
@@ -190,16 +246,23 @@ var cards = {
 
   //   }
   // },
-  // "Woodcutter": {
-  //   "supply": 10,
-  //   "cost": 3,
-  //   "type": {
-  //     "Action": true
-  //   },
-  //   "effects": {
-
-  //   }
-  // },
+  "Woodcutter": {
+    "supply": 10,
+    "cost": 3,
+    "type": {
+      "Action": true
+    },
+    "effects": [
+      {
+        "name": "plusBuy",
+        "amount": 1
+      },
+      {
+        "name": "plusTreasure",
+        "amount": 2
+      }
+    ]
+  },
   // "Workshop": {
   //   "supply": 10,
   //   "cost": 3,
