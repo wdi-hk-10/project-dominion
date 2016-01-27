@@ -7,9 +7,11 @@ $(document).ready(function(){
         $('#game-div').fadeIn('slow');
       }
     });
+    turnSetup();
   });
 
   $('button').prop('disabled', true);
+  $('#start-game').removeAttr('disabled');
   $('#reset-game').removeAttr('disabled');
   $('.start-turn').removeAttr('disabled');
 
@@ -44,6 +46,14 @@ $(document).ready(function(){
     // $('.buy-button').removeAttr('disabled');
     $('.play-cleanup').removeAttr('disabled');
   });
+
+  var buyActive = function(){
+    $('.buy-button').forEach(function(){
+      // if($(this).parent().~~~.cost<=treasureCount){
+      //   $(this).removeAttr('disabled');
+      // }
+    });
+  }
 
   $('.pass-buy').on('click', function(){
     console.log("Don't buy a card");
@@ -89,9 +99,9 @@ $(document).ready(function(){
   var treasureCount = 0;
 
   var turnSetup = function(){
-    $('.actionPoints').textContent('Action Points: 1');
-    $('.buyPoints').textContent('Buy Points: 1');
-    $('.treasurePoints').textContent('Treasure Points: 0');
+    $('.actionPoints').text('Action Points: 1');
+    $('.buyPoints').text('Buy Points: 1');
+    $('.treasurePoints').text('Treasure Points: 0');
   }
 
   // Prototype action-turn function
@@ -110,16 +120,9 @@ $(document).ready(function(){
   // }
 
   // Prototype buy-turn function
-  // var buyPhase = function(){
-  //   while (buyCount > 0){
-  //     $('#cardSelection').children().on('click', function(){
-  //       //call function
-  //       buyCount--;
-  //     });
-  //   }
-  //   phase--;
-  //   cleanupPhase();
-  // }
+  $('.buy-button').on('click', function(){
+    $(this).parent().find()
+  });
 
   // Prototype cleanup function
   // var cleanupPhase = function(){
@@ -138,67 +141,68 @@ $(document).ready(function(){
   //   phase--;
   // }
 
-  function card(name, suit){
-    this.name = name;
-    this.suit = suit;
-  }
-
-  // function drawPile() {
-  // // Create an empty array of cards.
-  //   this.cards = new Array();
-
-  //   this.makeDeck  = stackMakeDeck;
-  //   this.shuffle   = stackShuffle;
-  //   this.deal      = stackDeal;
-  //   this.draw      = stackDraw;
-  //   this.addCard   = stackAddCard;
-  //   this.combine   = stackCombine;
-  //   this.cardCount = stackCardCount;
+  // function card(name, type, effects){
+  //   this.name = name;
+  //   this.type = type;
+  //   this.effects = effects;
   // }
 
-  function stackMakeDeck() {
+  // // function drawPile() {
+  // // // Create an empty array of cards.
+  // //   this.cards = new Array();
 
-  }
+  // //   this.makeDeck  = stackMakeDeck;
+  // //   this.shuffle   = stackShuffle;
+  // //   this.deal      = stackDeal;
+  // //   this.draw      = stackDraw;
+  // //   this.addCard   = stackAddCard;
+  // //   this.combine   = stackCombine;
+  // //   this.cardCount = stackCardCount;
+  // // }
 
-  function stackShuffle(n){
-    var temp;
-    for(var i = 0; i < n; i++){
-      for(j = 0; j < this.cards.length; j++){
-        k = Math.floor(Math.random() * this.cards.length);
-        temp = this.cards[j];
-        this.cards[j] = this.cards[k];
-        this.cards[k] = temp;
-      }
-    }
-  }
+  // function stackMakeDeck() {
 
-  function stackDeal(){
-    if (this.cards.length > 0){
-      return this.cards.shift();
-    }else{
-      return null;
-    }
-  }
+  // }
 
-  function stackDraw(n){
-    var card;
-    if((n>=0)&&(n<this.cards.length){
-      card=this.cards[n];
-      this.cards.splice(n, 1);
-    }else{
-      card = null;
-    }
-    return card;
-  }
+  // function stackShuffle(n){
+  //   var temp;
+  //   for(var i = 0; i < n; i++){
+  //     for(j = 0; j < this.cards.length; j++){
+  //       k = Math.floor(Math.random() * this.cards.length);
+  //       temp = this.cards[j];
+  //       this.cards[j] = this.cards[k];
+  //       this.cards[k] = temp;
+  //     }
+  //   }
+  // }
 
-  function stackAddCard(card){
-    this.cards.push(card);
-  }
+  // function stackDeal(){
+  //   if (this.cards.length > 0){
+  //     return this.cards.shift();
+  //   }else{
+  //     return null;
+  //   }
+  // }
 
-  function stackCombine(stack){
-    this.cards=this.cards.concat(stack.cards);
-    stack.cards=new Array();
-  }
+  // function stackDraw(n){
+  //   var card;
+  //   if((n>=0)&&(n<this.cards.length)){
+  //     card=this.cards[n];
+  //     this.cards.splice(n, 1);
+  //   } else {
+  //     card = null;
+  //   }
+  //   return card;
+  // }
+
+  // function stackAddCard(card){
+  //   this.cards.push(card);
+  // }
+
+  // function stackCombine(stack){
+  //   this.cards=this.cards.concat(stack.cards);
+  //   stack.cards=new Array();
+  // }
 
   // function stackCardCount() {
 
@@ -206,8 +210,8 @@ $(document).ready(function(){
 
 });
 
-var cards = {
-  "Copper": {
+var dominionCards = {
+  "copper": {
     "supply": 60,
     "cost": 0,
     "type": {
@@ -216,7 +220,7 @@ var cards = {
     },
     "treasureValue": 1
   },
-  // "Silver": {
+  // "silver": {
   //   "supply": 40,
   //   "cost": 3,
   //   "type": {
@@ -224,7 +228,7 @@ var cards = {
   //   },
   //   "treasureValue": 2
   // },
-  // "Gold": {
+  // "gold": {
   //   "supply": 30,
   //   "cost": 6,
   //   "type": {
@@ -232,7 +236,7 @@ var cards = {
   //   },
   //   "treasureValue": 3
   // },
-  "Estate": {
+  "estate": {
     "supply": 8,
     "cost": 2,
     "type": {
@@ -240,7 +244,7 @@ var cards = {
     },
     "victoryValue": 1
   },
-  // "Duchy": {
+  // "duchy": {
   //   "supply": 8,
   //   "cost": 5,
   //   "type": {
@@ -248,7 +252,7 @@ var cards = {
   //   },
   //   "victoryValue": 3
   // },
-  // "Province": {
+  // "province": {
   //   "supply": 8,
   //   "cost": 8,
   //   "type": {
@@ -256,7 +260,7 @@ var cards = {
   //   },
   //   "victoryValue": 6
   // },
-  // "Cellar": {
+  // "cellar": {
   //   "supply": 10,
   //   "cost": 2,
   //   "type": {
@@ -274,57 +278,94 @@ var cards = {
   //   ]
   // },
   // cards["Cellar"].effects[1].xxx()
-  // "Market": {
+  // "market": {
   //   "supply": 10,
   //   "cost": 5,
   //   "type": {
   //     "Action": true
   //   },
-  //   "effects": {
-
-  //   }
+  //   "effects": [
+  //     {
+  //       "name": "plusCard",
+  //       "amount": 1
+  //     },
+  //     {
+  //       "name": "plusAction",
+  //       "amount": 1
+  //     },
+  //     {
+  //       "name": "plusBuy",
+  //       "amount": 1
+  //     },
+  //     {
+  //       "name": "plusTreasure",
+  //       "amount": 1
+  //     }
+  //   ]
   // },
-  // "Throne Room": {
+  // "throne Room": {
   //   "supply": 10,
   //   "cost": 4,
   //   "type": {
   //     "Action": true
   //   },
-  //   "effects": {
-
-  //   }
+  //   "effects": [
+  //     "name": "playTwice",
+  //     "":
+  //   ]
   // },
-  // "Festival": {
+  // "festival": {
   //   "supply": 10,
   //   "cost": 5,
   //   "type": {
   //     "Action": true
   //   },
-  //   "effects": {
-
-  //   }
+  //   "effects": [
+  //     {
+  //       "name": "plusAction",
+  //       "amount": 2
+  //     },
+  //     {
+  //       "name": "plusBuy",
+  //       "amount": 1
+  //     },
+  //     {
+  //       "name": "plusTreasure",
+  //       "amount": 2
+  //     }
+  //   ]
   // },
-  // "Smithy": {
+  // "smithy": {
   //   "supply": 10,
   //   "cost": 4,
   //   "type": {
   //     "Action": true
   //   },
-  //   "effects": {
-
-  //   }
+    // "effects": [
+    //   {
+    //     "name": "plusCard",
+    //     "amount": 3
+    //   }
+    // ]
   // },
-  // "Village": {
+  // "village": {
   //   "supply": 10,
   //   "cost": 3,
   //   "type": {
   //     "Action": true
   //   },
-  //   "effects": {
-
-  //   }
+  //   "effects": [
+  //     {
+  //       "name": "plusCard",
+  //       "amount": 1
+  //     },
+  //     {
+  //       "name": "plusAction",
+  //       "amount": 2
+  //     }
+  //   ]
   // },
-  "Woodcutter": {
+  "woodcutter": {
     "supply": 10,
     "cost": 3,
     "type": {
@@ -341,17 +382,20 @@ var cards = {
       }
     ]
   },
-  // "Workshop": {
+  // "workshop": {
   //   "supply": 10,
   //   "cost": 3,
   //   "type": {
   //     "Action": true
   //   },
-  //   "effects": {
-
-  //   }
+  //   "effects": [
+  //     {
+  //       "name": "upTo4",
+  //       "amount"
+  //     }
+  //   ]
   // },
-  // "Council Room": {
+  // "council-room": {
   //   "supply": 10,
   //   "cost": 5,
   //   "type": {
@@ -372,7 +416,7 @@ var cards = {
   //     }
   //   ]
   // },
-  // "Laboratory": {
+  // "laboratory": {
   //   "supply": 10,
   //   "cost": 5,
   //   "type": {

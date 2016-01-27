@@ -77,6 +77,10 @@ header {
       color: red;
     }
 
+      .turnB {
+        height: 85px;
+      }
+
   .draw-discard {
     margin-top: 25px;
     background-color: #4385c2;
