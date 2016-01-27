@@ -69,31 +69,30 @@ $(document).ready(function(){
   });
 
   // Prototype player-turn switching function
-  var playerTurn=true;
-  var phase=1;
-  $('.end-turn').on('click', function(){
-    phase--;
-    if(phase<=0){
-      if(playerTurn===true){
-        $('#playerHands a:last').tab('show');
-        playerTurn=false;
-      }else{
-        $('#playerHands a:first').tab('show');
-        playerTurn=true;
-      }
-      $('.end-turn').prop('disabled', true);
-      $('.start-turn').removeAttr('disabled');
-    }else{
-      alert("You have not finished your turn yet!");
-      alert(phase);
+  var playerTurn = true;
+  $('.end-turn').on('click', function() {
+    if(playerTurn === true) {
+      $('#playerHands a:last').tab('show');
+      playerTurn = false;
+    } else {
+      $('#playerHands a:first').tab('show');
+      playerTurn = true;
     }
-    phase=1
+    $('.end-turn').prop('disabled', true);
+    $('.start-turn').removeAttr('disabled');
+    turnSetup();
   });
 
   // Prototype turn-order function
-  var actionCount=1;
-  var buyCount=1;
-  var treasureCount=0;
+  var actionCount = 1;
+  var buyCount = 1;
+  var treasureCount = 0;
+
+  var turnSetup = function(){
+    $('.actionPoints').textContent('Action Points: 1');
+    $('.buyPoints').textContent('Buy Points: 1');
+    $('.treasurePoints').textContent('Treasure Points: 0');
+  }
 
   // Prototype action-turn function
   // var actionPhase = function(){
@@ -139,10 +138,10 @@ $(document).ready(function(){
   //   phase--;
   // }
 
-  // function card(name, suit){
-  //   this.name = name;
-  //   this.suit = suit;
-  // }
+  function card(name, suit){
+    this.name = name;
+    this.suit = suit;
+  }
 
   // function drawPile() {
   // // Create an empty array of cards.
@@ -157,29 +156,49 @@ $(document).ready(function(){
   //   this.cardCount = stackCardCount;
   // }
 
-  // function stackMakeDeck() {
+  function stackMakeDeck() {
 
-  // }
+  }
 
-  // function stackShuffle() {
+  function stackShuffle(n){
+    var temp;
+    for(var i = 0; i < n; i++){
+      for(j = 0; j < this.cards.length; j++){
+        k = Math.floor(Math.random() * this.cards.length);
+        temp = this.cards[j];
+        this.cards[j] = this.cards[k];
+        this.cards[k] = temp;
+      }
+    }
+  }
 
-  // }
+  function stackDeal(){
+    if (this.cards.length > 0){
+      return this.cards.shift();
+    }else{
+      return null;
+    }
+  }
 
-  // function stackDeal() {
+  function stackDraw(n){
+    var card;
+    if((n>=0)&&(n<this.cards.length){
+      card=this.cards[n];
+      this.cards.splice(n, 1);
+    }else{
+      card = null;
+    }
+    return card;
+  }
 
-  // }
+  function stackAddCard(card){
+    this.cards.push(card);
+  }
 
-  // function stackDraw() {
-
-  // }
-
-  // function stackAddCard() {
-
-  // }
-
-  // function stackCombine() {
-
-  // }
+  function stackCombine(stack){
+    this.cards=this.cards.concat(stack.cards);
+    stack.cards=new Array();
+  }
 
   // function stackCardCount() {
 
@@ -265,9 +284,9 @@ var cards = {
 
   //   }
   // },
-  // "Mine": {
+  // "Throne Room": {
   //   "supply": 10,
-  //   "cost": 5,
+  //   "cost": 4,
   //   "type": {
   //     "Action": true
   //   },
@@ -275,9 +294,9 @@ var cards = {
 
   //   }
   // },
-  // "Remodel": {
+  // "Festival": {
   //   "supply": 10,
-  //   "cost": 4,
+  //   "cost": 5,
   //   "type": {
   //     "Action": true
   //   },
