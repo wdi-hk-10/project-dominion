@@ -19,44 +19,64 @@ $(document).ready(function(){
     turnSetup();
   });
 
-  var dominionShop;
-  var shopSetup = function(){
-    dominionShop = dominionCards;
-    for (var key in dominionShop){
-      $('.buy-button[data-name="' + key + '"]').data("supply", dominionShop[key].supply).data("cost", dominionShop[key].cost);
-    }
-  }
+  $('button').prop('disabled', true);
+  $('#start-game').removeAttr('disabled');
+  $('#reset-game').removeAttr('disabled');
+  $('.start-turn').removeAttr('disabled');
 
-  var p1_deck = blankCards;
+  var p1_deck = {};
+  $.extend(true, p1_deck, blankCards);
   var p1_hand = {};
-  var p1_discard = blankCards;
-  var p2_deck = blankCards;
+  var p1_discard = {};
+  $.extend(true, p1_discard, blankCards);
+  var p2_deck = {};
+  $.extend(true, p2_deck, blankCards);
   var p2_hand = {};
-  var p2_discard = blankCards;
+  var p2_discard = {};
+  $.extend(true, p2_discard, blankCards);
 
   var startSetup = function(){
     // create player start decks
     shopSetup();
     createDeck(p1_deck);
+    console.log(p1_deck);
     createDeck(p2_deck);
+    console.log(p2_deck);
     // shuffle decks
     // shuffleDeck(p1_deck);
     // shuffleDeck(p2_deck);
     // push first 5 card on decks to hands
     // drawHand(p1_deck, p1_hand, 5);
     // drawHand(p2_deck, p2_hand, 5);
+  }
 
-    $('button').prop('disabled', true);
-    $('#start-game').removeAttr('disabled');
-    $('#reset-game').removeAttr('disabled');
-    $('.start-turn').removeAttr('disabled');
-
+  function createDeck(playerDeck) {
+    // minus 7 copper from cardPile
+    for (var j = 0; j < 7; j++) {
+      playerDeck["copper"].supply++
+      var currentValue = $('.buy-button[data-name="copper"]').data("supply");
+      $('.buy-button[data-name="copper"]').data("supply", currentValue-1);
+    }
+    // minus 3 estate from cardPile
+    for (var j = 0; j < 3; j++) {
+      playerDeck["estate"].supply++
+      var currentValue = $('.buy-button[data-name="estate"]').data("supply");
+      $('.buy-button[data-name="estate"]').data("supply", currentValue-1);
+    }
   }
 
   var turnSetup = function(){
     $('.actionPoints').text('Action Points: 1');
     $('.buyPoints').text('Buy Points: 1');
     $('.treasurePoints').text('Treasure Points: 0');
+  }
+
+  var dominionShop;
+  var shopSetup = function(){
+    dominionShop = dominionCards;
+    for (var key in dominionShop){
+      $('.buy-button[data-name="' + key + '"]').data("supply", dominionShop[key].supply).data("cost", dominionShop[key].cost).data("type", dominionShop[key].type);
+    }
   }
 
   // Step 2 binding
@@ -107,7 +127,7 @@ $(document).ready(function(){
     // disable play-buy && pass-buy
   // $('.buy-button).forEach()
     // if (buy-button[key].data(cost)) <= treasure points
-    // && if ($('.buy-button[data-name="estate"]').data('type'))!=="action"
+    // && if ($('.buy-button[data-name=" + key + "]').data('type'))!=="action"
       // activate buy-button
 
   $('.play-buy').on('click', function(){
@@ -208,27 +228,16 @@ $(document).ready(function(){
   //   trigger endgame window
   // }
 
-  function createDeck(playerDeck) {
-    // minus 7 copper from cardPile
-    for (var j = 0; j < 7; j++) {
-      playerDeck["copper"].supply++
-      var currentValue = $('.buy-button[data-name="copper"]').data("supply");
-      $('.buy-button[data-name="copper"]').data("supply", currentValue-1);
-    }
-    // minus 3 estate from cardPile
-    for (var j = 0; j < 3; j++) {
-      playerDeck["estate"].supply++
-      var currentValue = $('.buy-button[data-name="estate"]').data("supply");
-      $('.buy-button[data-name="estate"]').data("supply", currentValue-1);
-    }
-    // push these cards to player.deck
-  }
-
-  function shuffleDeck2(playerDeck) {
-    var playerDeckKeys = Object.keys(blankCards);
-    var k = Math.floor(Math.random() * playerDeckKeys.length);
-    if(playerDeck[(playerDeckKeys[k])].data('supply') > 0) {
-      console.log(playerDeckKeys[k]);
+  function shuffleDeck(playerDeck) {
+    var playerDeckKeys = Object.keys(playerDeck);
+    var timesToRun = playerDeckKeys.length;
+    for(var j = 0; j < timesToRun; j++){
+      var k = Math.floor(Math.random() * playerDeckKeys.length);
+      if(playerDeck[playerDeckKeys[k]].supply > 0) {
+        return playerDeckKeys[k];
+      } else {
+        playerDeckKeys.splice(k,1);
+      }
     }
   }
 

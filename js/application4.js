@@ -17,6 +17,13 @@ $(document).ready(function(){
   $('.start-turn').removeAttr('disabled');
   $('.buy-button').removeAttr('disabled');
 
+  window.p1_deck = blankCards;
+  var p1_hand = {};
+  var p1_discard = blankCards;
+  var p2_deck = blankCards;
+  var p2_hand = {};
+  var p2_discard = blankCards;
+
   var startSetup = function(){
     // create player start decks
     shopSetup();
@@ -36,12 +43,7 @@ $(document).ready(function(){
     }
   }
 
-  window.p1_deck = blankCards;
-  var p1_hand = {};
-  var p1_discard = blankCards;
-  var p2_deck = blankCards;
-  var p2_hand = {};
-  var p2_discard = blankCards;
+
 
   window.createDeck = function (playerDeck) {
   // function createDeck(playerDeck) {
@@ -66,53 +68,56 @@ $(document).ready(function(){
 
   window.drawCard = function(playerDeck) {
   // function drawCard(playerDeck) {
-    var card = document.createElement("div");
-    card.data("name", $('.buy-button[data-name="' + key + '"]')).text(key);
+    if (playerDeck.length < 1) {
+      discardMerge(playerDiscard, playerDeck);
+    }
+    var card = $("<div>");
+    var cardKey = shuffleDeck(playerDeck);
+    card.data("name", cardKey);
     card.addClass("handCards");
+    card.text(cardKey);
     if (playerDeck == "p1_deck") {
       $('#player1.player-hand').append(card);
     } else {
       $('#player2.player-hand').append(card);
     }
+    playerDeck[cardKey].supply--;
   }
 
   function shuffleDeck(playerDeck) {
-    var playerDeckKeys = Object.keys(blankCards);
-    for(var j = 0; j < playerDeck.length; j++){
+    var playerDeckKeys = Object.keys(playerDeck);
+    var timesToRun = playerDeckKeys.length;
+    for(var j = 0; j < timesToRun; j++){
       var k = Math.floor(Math.random() * playerDeckKeys.length);
-      if(playerDeck[(playerDeckKeys[k])].data('supply') > 0) {
-        console.log(playerDeckKeys[k]);
+      if(playerDeck[playerDeckKeys[k]].supply > 0) {
+        return playerDeckKeys[k];
+      } else {
+        playerDeckKeys.splice(k,1);
       }
     }
   }
 
-  function shuffleDeck2(playerDeck) {
-    var playerDeckKeys = Object.keys(blankCards);
-    var k = Math.floor(Math.random() * playerDeckKeys.length);
-    if(playerDeck[(playerDeckKeys[k])].data('supply') > 0) {
-      console.log(playerDeckKeys[k]);
-    }
-  }
-
-  function clearHand(playerHand, playerDiscard) {
-    playerHand.child().forEach(){
-      $(this[data-name])
-    }
-  }
+  // function clearHand(playerHand, playerDiscard) {
+  //   playerHand.child().forEach(){
+  //     $(this[data-name])
+  //   }
+  // }
 
   function discardCard(playerHand, playerDiscard) {
 
   }
 
+  function discardMerge(playerDiscard, playerDeck) {
+    for (var key in playerDiscard) {
+      for (var key in playerDeck) {
+        if playerDeck[key] == playerDiscard[key] {
+          var currentDeck = $('playerDeck[data-name="' + key + '"]').data("supply");
+          var currentDiscard = $('playerDiscard[data-name="' + key + '"]').data("supply");
+          $('playerDeck[data-name="' + key + '"]').data("supply", currentDeck + currentDiscard);
+          $('playerDeck[data-name="' + key + '"]').data("supply", 0);
+        }
+      }
+    }
+  }
 
-  // function drawCard(playerDeck) {
-  //   if (playerDeck.length < 1) {
-  //     discardMerge(playerDiscard, playerDeck);
-  //   }
-  //   if
-  // }
-
-  // function discardMerge(playerDiscard, playerDeck) {
-
-  // }
 });

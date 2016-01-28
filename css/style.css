@@ -92,6 +92,13 @@ header {
     background-color: #02194a;
   }
 
+    .handCards {
+      max-height: 100px;
+      max-width: 100px;
+      background-color: black;
+      font-style: red;
+    }
+
 .signature {
   padding-top: 20px;
   padding-bottom: 20px;
