@@ -3,37 +3,37 @@ var blankCards = {
     "supply": 0,
     "cost": 0,
     "type": "treasure",
-    "treasureValue": 1
+    "amount": 1
   },
   "silver": {
     "supply": 0,
     "cost": 3,
     "type": "treasure",
-    "treasureValue": 2
+    "amount": 2
   },
   "gold": {
     "supply": 0,
     "cost": 6,
     "type": "treasure",
-    "treasureValue": 3
+    "amount": 3
   },
   "estate": {
     "supply": 0,
     "cost": 2,
     "type": "victory",
-    "victoryValue": 1
+    "amount": 1
   },
   "duchy": {
     "supply": 0,
     "cost": 5,
     "type": "victory",
-    "victoryValue": 3
+    "amount": 3
   },
   "province": {
     "supply": 0,
     "cost": 8,
     "type": "victory",
-    "victoryValue": 6
+    "amount": 6
   },
   "cellar": {
     "supply": 0,

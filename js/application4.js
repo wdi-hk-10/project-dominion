@@ -64,26 +64,44 @@ $(document).ready(function(){
 
   }
 
-  function shuffleDeck(playerDeck) {
-    // create a variable tmp
-    // shift random cards to push to tmp
-    // make player.deck equal to tmp
-    var tmp;
-    for(var j = 0; j < playerDeck.length; j++){
-      var k = Math.floor(Math.random() * playerDeck.length);
-      tmp = playerDeck[j];
-      playerDeck[j] = playerDeck[k];
-      playerDeck[k] = tmp;
+  window.drawCard = function(playerDeck) {
+  // function drawCard(playerDeck) {
+    var card = document.createElement("div");
+    card.data("name", $('.buy-button[data-name="' + key + '"]')).text(key);
+    card.addClass("handCards");
+    if (playerDeck == "p1_deck") {
+      $('#player1.player-hand').append(card);
+    } else {
+      $('#player2.player-hand').append(card);
     }
   }
 
   function shuffleDeck(playerDeck) {
+    var playerDeckKeys = Object.keys(blankCards);
     for(var j = 0; j < playerDeck.length; j++){
       var k = Math.floor(Math.random() * playerDeckKeys.length);
-      if (playerDeck[(playerDeckKeys[k])].data('supply') > 0) {
-
+      if(playerDeck[(playerDeckKeys[k])].data('supply') > 0) {
+        console.log(playerDeckKeys[k]);
       }
     }
+  }
+
+  function shuffleDeck2(playerDeck) {
+    var playerDeckKeys = Object.keys(blankCards);
+    var k = Math.floor(Math.random() * playerDeckKeys.length);
+    if(playerDeck[(playerDeckKeys[k])].data('supply') > 0) {
+      console.log(playerDeckKeys[k]);
+    }
+  }
+
+  function clearHand(playerHand, playerDiscard) {
+    playerHand.child().forEach(){
+      $(this[data-name])
+    }
+  }
+
+  function discardCard(playerHand, playerDiscard) {
+
   }
 
 

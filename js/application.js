@@ -1,4 +1,3 @@
-$(document).ready(function(){
 
   $('#start-game').on('click', function(){
     $('#cover-page').fadeOut({

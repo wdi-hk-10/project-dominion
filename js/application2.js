@@ -27,24 +27,24 @@ $(document).ready(function(){
     }
   }
 
-  var p1_deck = {};
+  var p1_deck = blankCards;
   var p1_hand = {};
-  var p1_discard = {};
-  var p2_deck = {};
+  var p1_discard = blankCards;
+  var p2_deck = blankCards;
   var p2_hand = {};
-  var p2_discard = {};
+  var p2_discard = blankCards;
 
   var startSetup = function(){
     // create player start decks
     shopSetup();
-    createDeck('p1_deck');
-    createDeck('p2_deck');
+    createDeck(p1_deck);
+    createDeck(p2_deck);
     // shuffle decks
-    shuffleDeck('p1_deck');
-    shuffleDeck('p2_deck');
+    // shuffleDeck(p1_deck);
+    // shuffleDeck(p2_deck);
     // push first 5 card on decks to hands
-    drawHand('p1_deck', 'p1_hand', 5);
-    drawHand('p2_deck', 'p2_hand', 5);
+    // drawHand(p1_deck, p1_hand, 5);
+    // drawHand(p2_deck, p2_hand, 5);
 
     $('button').prop('disabled', true);
     $('#start-game').removeAttr('disabled');
@@ -110,6 +110,21 @@ $(document).ready(function(){
     // && if ($('.buy-button[data-name="estate"]').data('type'))!=="action"
       // activate buy-button
 
+  $('.play-buy').on('click', function(){
+    console.log("Buy a card");
+    $('.play-buy').prop('disabled', true);
+    $('.pass-buy').prop('disabled', true);
+    // $('.buy-button').removeAttr('disabled');
+    $('.play-cleanup').removeAttr('disabled');
+  });
+
+  $('.pass-buy').on('click', function(){
+    console.log("Don't buy a card");
+    $('.play-buy').prop('disabled', true);
+    $('.pass-buy').prop('disabled', true);
+    $('.play-cleanup').removeAttr('disabled');
+  });
+
   // Step 4.5 binding
   // $('.buy-button).on('click', function(){
     // push card to discard pile
@@ -130,6 +145,12 @@ $(document).ready(function(){
     //
   // });
 
+  $('.play-cleanup').on('click', function(){
+    console.log("Discard your hand");
+    $('.play-cleanup').prop('disabled', true);
+    $('.play-draw').removeAttr('disabled');
+  });
+
   // Step 6 binding - draw
   // $('.draw').on('click', function(){
   //   if (playerDeck.length < 5) {
@@ -139,22 +160,28 @@ $(document).ready(function(){
   //   drawCards(5);
   // });
 
+  $('.play-draw').on('click', function(){
+    console.log("Draw five new cards");
+    $('.play-draw').prop('disabled', true);
+    $('.end-turn').removeAttr('disabled');
+  });
+
   // Step 7 binding - end turn
-  // var playerTurn = true;
-  // $('.end-turn').on('click', function() {
-  //   $('.end-turn').prop('disabled', true);
-  //   if (dominionShop["province"].supply == 0) {
-  //     endGame();
-  //   } else if(playerTurn === true) {
-  //     $('#playerHands a:last').tab('show');
-  //     playerTurn = false;
-  //   } else {
-  //     $('#playerHands a:first').tab('show');
-  //     playerTurn = true;
-  //   }
-  //   $('.start-turn').removeAttr('disabled');
-  //   turnSetup();
-  // });
+  var playerTurn = true;
+  $('.end-turn').on('click', function() {
+    $('.end-turn').prop('disabled', true);
+    if (dominionShop["province"].supply == 0) {
+      endGame();
+    } else if(playerTurn === true) {
+      $('#playerHands a:last').tab('show');
+      playerTurn = false;
+    } else {
+      $('#playerHands a:first').tab('show');
+      playerTurn = true;
+    }
+    $('.start-turn').removeAttr('disabled');
+    turnSetup();
+  });
 
   // Step 8 binding
   // var p1score = 0;
@@ -183,28 +210,25 @@ $(document).ready(function(){
 
   function createDeck(playerDeck) {
     // minus 7 copper from cardPile
-    for (var i = 7; i > 0; i--) {
-      playerDeck.push(shop.copper);
-      shopPile[copper].supply--;
+    for (var j = 0; j < 7; j++) {
+      playerDeck["copper"].supply++
+      var currentValue = $('.buy-button[data-name="copper"]').data("supply");
+      $('.buy-button[data-name="copper"]').data("supply", currentValue-1);
     }
     // minus 3 estate from cardPile
-    for (var j = 3; j > 0; j--) {
-      playerDeck.push(shop.estate);
-      shopPile[estate].supply--;
+    for (var j = 0; j < 3; j++) {
+      playerDeck["estate"].supply++
+      var currentValue = $('.buy-button[data-name="estate"]').data("supply");
+      $('.buy-button[data-name="estate"]').data("supply", currentValue-1);
     }
     // push these cards to player.deck
   }
 
-  function shuffleDeck(playerDeck) {
-    // create a variable tmp
-    // shift random cards to push to tmp
-    // make player.deck equal to tmp
-    var tmp;
-    for(var j = 0; j < playerDeck.length; j++){
-      var k = Math.floor(Math.random() * playerDeck.length);
-      tmp = playerDeck[j];
-      playerDeck[j] = playerDeck[k];
-      playerDeck[k] = tmp;
+  function shuffleDeck2(playerDeck) {
+    var playerDeckKeys = Object.keys(blankCards);
+    var k = Math.floor(Math.random() * playerDeckKeys.length);
+    if(playerDeck[(playerDeckKeys[k])].data('supply') > 0) {
+      console.log(playerDeckKeys[k]);
     }
   }
 
@@ -221,230 +245,3 @@ $(document).ready(function(){
   }
 
 });
-
-var dominionCards = {
-  "copper": {
-    "supply": 60,
-    "cost": 0,
-    "type": {
-      // I wrote it like this after doing some reading on JS Objects
-      "Treasure": true
-    },
-    "treasureValue": 1
-  },
-  "silver": {
-    "supply": 40,
-    "cost": 3,
-    "type": {
-      "Treasure": true
-    },
-    "treasureValue": 2
-  },
-  "gold": {
-    "supply": 30,
-    "cost": 6,
-    "type": {
-      "Treasure": true
-    },
-    "treasureValue": 3
-  },
-  "estate": {
-    "supply": 14,
-    "cost": 2,
-    "type": {
-      "Victory": true
-    },
-    "victoryValue": 1
-  },
-  "duchy": {
-    "supply": 8,
-    "cost": 5,
-    "type": {
-      "Victory": true
-    },
-    "victoryValue": 3
-  },
-  "province": {
-    "supply": 8,
-    "cost": 8,
-    "type": {
-      "Victory": true
-    },
-    "victoryValue": 6
-  },
-  "cellar": {
-    "supply": 10,
-    "cost": 2,
-    "type": {
-      "Action": true
-    },
-    "effects": [
-      {
-        "name": "plusAction",
-        "amount": 1
-      },
-      {
-        "name": "draw/discard"
-        // "": drawDiscard
-      }
-    ]
-  },
-  // cards["Cellar"].effects[1].xxx()
-  "market": {
-    "supply": 10,
-    "cost": 5,
-    "type": {
-      "Action": true
-    },
-    "effects": [
-      {
-        "name": "plusCard",
-        "amount": 1
-      },
-      {
-        "name": "plusAction",
-        "amount": 1
-      },
-      {
-        "name": "plusBuy",
-        "amount": 1
-      },
-      {
-        "name": "plusTreasure",
-        "amount": 1
-      }
-    ]
-  },
-  "throneroom": {
-    "supply": 10,
-    "cost": 4,
-    "type": {
-      "Action": true
-    },
-    "effects": [
-      {
-        "name": "playTwice",
-        "": ""
-      }
-    ]
-  },
-  "festival": {
-    "supply": 10,
-    "cost": 5,
-    "type": {
-      "Action": true
-    },
-    "effects": [
-      {
-        "name": "plusAction",
-        "amount": 2
-      },
-      {
-        "name": "plusBuy",
-        "amount": 1
-      },
-      {
-        "name": "plusTreasure",
-        "amount": 2
-      }
-    ]
-  },
-  "smithy": {
-    "supply": 10,
-    "cost": 4,
-    "type": {
-      "Action": true
-    },
-    "effects": [
-      {
-        "name": "plusCard",
-        "amount": 3
-      }
-    ]
-  },
-  "village": {
-    "supply": 10,
-    "cost": 3,
-    "type": {
-      "Action": true
-    },
-    "effects": [
-      {
-        "name": "plusCard",
-        "amount": 1
-      },
-      {
-        "name": "plusAction",
-        "amount": 2
-      }
-    ]
-  },
-  "woodcutter": {
-    "supply": 10,
-    "cost": 3,
-    "type": {
-      "Action": true
-    },
-    "effects": [
-      {
-        "name": "plusBuy",
-        "amount": 1
-      },
-      {
-        "name": "plusTreasure",
-        "amount": 2
-      }
-    ]
-  },
-  "workshop": {
-    "supply": 10,
-    "cost": 3,
-    "type": {
-      "Action": true
-    },
-    "effects": [
-      {
-        "name": "upTo4",
-        "amount": ""
-      }
-    ]
-  },
-  "councilroom": {
-    "supply": 10,
-    "cost": 5,
-    "type": {
-      "Action": true
-    },
-    "effects": [
-      {
-        "name": "plusCard",
-        "amount": 4
-      },
-      {
-        "name": "plusBuy",
-        "amount": 1
-      },
-      {
-        "name": "otherPlayersDraw",
-        "amount": 1
-      }
-    ]
-  },
-  "laboratory": {
-    "supply": 10,
-    "cost": 5,
-    "type": {
-      "Action": true
-    },
-    "effects": [
-      {
-        "name": "plusCard",
-        "amount": 2
-      },
-      {
-        "name": "plusAction",
-        "amount": 1
-      }
-    ]
-  }
-}
