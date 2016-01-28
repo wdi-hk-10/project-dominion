@@ -18,21 +18,45 @@ $(document).ready(function(){
   $('.buy-button').removeAttr('disabled');
 
   window.p1_deck = blankCards;
-  var p1_hand = {};
-  var p1_discard = blankCards;
+  window.p1_hand = {};
+  window.p1_discard = blankCards;
   var p2_deck = blankCards;
   var p2_hand = {};
   var p2_discard = blankCards;
+
+  window.p1_deck = {};
+  $.extend(true, p1_deck, blankCards);
+  window.p1_hand = {};
+  window.p1_discard = {};
+  $.extend(true, p1_discard, blankCards);
+  var p2_deck = {};
+  $.extend(true, p2_deck, blankCards);
+  var p2_hand = {};
+  var p2_discard = {};
+  $.extend(true, p2_discard, blankCards);
 
   var startSetup = function(){
     // create player start decks
     shopSetup();
   }
 
+  var actionCount = 1;
+  var buyCount = 1;
+  var treasureCount = 0;
+
+  var playerTurn = true;
   var turnSetup = function(){
+    actionCount = 1;
+    buyCount = 1;
+    treasureCount = 0;
     $('.actionPoints').text('Action Points: 1');
     $('.buyPoints').text('Buy Points: 1');
     $('.treasurePoints').text('Treasure Points: 0');
+    if (playerTurn === true) {
+      playerDeck = p1_deck;
+      playerHand = $('#player1 .player-hand');
+      playerDiscard = p1_discard;
+    }
   }
 
   var dominionShop;
@@ -42,8 +66,6 @@ $(document).ready(function(){
       $('.buy-button[data-name="' + key + '"]').data("supply", dominionShop[key].supply).data("cost", dominionShop[key].cost).data("type", dominionShop[key].type);
     }
   }
-
-
 
   window.createDeck = function (playerDeck) {
   // function createDeck(playerDeck) {
@@ -62,24 +84,40 @@ $(document).ready(function(){
     }
   }
 
-  function buyCard(playerDiscard) {
-
+  function buyCard(elem, playerDiscard) {
+    var cardName = $(elem).data('name');
+    var currentValue = $(elem).data("supply");
+    $(elem).data("supply", currentValue-1);
+    playerDiscard[cardName].supply++;
   }
 
-  window.drawCard = function(playerDeck) {
-  // function drawCard(playerDeck) {
-    if (playerDeck.length < 1) {
+  function findDeckSize(playerDeck) {
+    var totalSize = 0;
+    for (var key in playerDeck) {
+      totalSize += playerDeck[key].supply;
+    }
+    return totalSize;
+  }
+
+  window.drawHand = function(playerDeck) {
+  //function drawHand(playerDeck) {
+    for (var i = 0; i < 5; i++) {
+      drawCard(playerDeck);
+    }
+  }
+
+  // window.drawCard = function(playerDeck) {
+  function drawCard(playerDeck) {
+    if (findDeckSize(playerDeck) < 1) {
       discardMerge(playerDiscard, playerDeck);
     }
-    var card = $("<div>");
     var cardKey = shuffleDeck(playerDeck);
-    card.data("name", cardKey);
-    card.addClass("handCards");
-    card.text(cardKey);
-    if (playerDeck == "p1_deck") {
-      $('#player1.player-hand').append(card);
+    var html = '<div class="handCards" data-name="' + cardKey + '">' + cardKey + '</div>';
+
+    if (p1_deck === playerDeck) {
+      $('#player1 .player-hand').append(html);
     } else {
-      $('#player2.player-hand').append(card);
+      $('#player2 .player-hand').append(html);
     }
     playerDeck[cardKey].supply--;
   }
@@ -97,26 +135,36 @@ $(document).ready(function(){
     }
   }
 
-  // function clearHand(playerHand, playerDiscard) {
-  //   playerHand.child().forEach(){
-  //     $(this[data-name])
-  //   }
-  // }
-
-  function discardCard(playerHand, playerDiscard) {
-
+  window.countHandTreasure = function(playerHand, playerDeck, playerDiscard) {
+  // function countHandTreasure(playerHand, playerDeck, playerDiscard) {
+    playerHand.find('.handCards').each(function(index, elem){
+      var cardName = $(elem).data('name');
+      if (playerDeck[cardName].type == "treasure") {
+        treasureCount += playerDeck[cardName].amount;
+        discardCard(elem, cardName, playerDiscard);
+      }
+      $('.treasurePoints').text('Treasure Points: ' + treasureCount);
+    });
   }
 
-  function discardMerge(playerDiscard, playerDeck) {
+  window.clearHand = function(playerHand, playerDiscard){
+  // function clearHand(playerHand){
+    playerHand.find('.handCards').each(function(index, elem){
+      var cardName = $(elem).data('name');
+      discardCard(elem, cardName, playerDiscard);
+    });
+  }
+
+  function discardCard(elem, cardName, playerDiscard) {
+    elem.remove();
+    playerDiscard[cardName].supply++;
+  }
+
+  window.discardMerge = function(playerDiscard, playerDeck) {
+  // function discardMerge(playerDiscard, playerDeck) {
     for (var key in playerDiscard) {
-      for (var key in playerDeck) {
-        if playerDeck[key] == playerDiscard[key] {
-          var currentDeck = $('playerDeck[data-name="' + key + '"]').data("supply");
-          var currentDiscard = $('playerDiscard[data-name="' + key + '"]').data("supply");
-          $('playerDeck[data-name="' + key + '"]').data("supply", currentDeck + currentDiscard);
-          $('playerDeck[data-name="' + key + '"]').data("supply", 0);
-        }
-      }
+      playerDeck[key].supply += playerDiscard[key].supply;
+      playerDiscard[key].supply = 0;
     }
   }
 
