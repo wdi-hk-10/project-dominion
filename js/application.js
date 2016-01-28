@@ -237,7 +237,7 @@ var dominionCards = {
   //   "treasureValue": 3
   // },
   "estate": {
-    "supply": 8,
+    "supply": 14,
     "cost": 2,
     "type": {
       "Victory": true
@@ -303,7 +303,7 @@ var dominionCards = {
   //     }
   //   ]
   // },
-  // "throne Room": {
+  // "throneroom": {
   //   "supply": 10,
   //   "cost": 4,
   //   "type": {
@@ -395,7 +395,7 @@ var dominionCards = {
   //     }
   //   ]
   // },
-  // "council-room": {
+  // "councilroom": {
   //   "supply": 10,
   //   "cost": 5,
   //   "type": {
