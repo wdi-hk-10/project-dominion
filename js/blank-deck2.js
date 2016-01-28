@@ -1,42 +1,42 @@
 var blankCards = {
   "copper": {
-    "supply": 1,
+    "supply": 0,
     "cost": 0,
     "type": "treasure",
     "treasureValue": 1
   },
   "silver": {
-    "supply": 1,
+    "supply": 0,
     "cost": 3,
     "type": "treasure",
     "treasureValue": 2
   },
   "gold": {
-    "supply": 1,
+    "supply": 0,
     "cost": 6,
     "type": "treasure",
     "treasureValue": 3
   },
   "estate": {
-    "supply": 1,
+    "supply": 0,
     "cost": 2,
     "type": "victory",
     "victoryValue": 1
   },
   "duchy": {
-    "supply": 1,
+    "supply": 0,
     "cost": 5,
     "type": "victory",
     "victoryValue": 3
   },
   "province": {
-    "supply": 1,
+    "supply": 0,
     "cost": 8,
     "type": "victory",
     "victoryValue": 6
   },
   "cellar": {
-    "supply": 1,
+    "supply": 0,
     "cost": 2,
     "type": "action",
     "effects": [
@@ -52,7 +52,7 @@ var blankCards = {
   },
   // cards["Cellar"].effects[1].xxx()
   "market": {
-    "supply": 1,
+    "supply": 0,
     "cost": 5,
     "type": "action",
     "effects": [
@@ -75,7 +75,7 @@ var blankCards = {
     ]
   },
   "throneroom": {
-    "supply": 1,
+    "supply": 0,
     "cost": 4,
     "type": "action",
     "effects": [
@@ -86,7 +86,7 @@ var blankCards = {
     ]
   },
   "festival": {
-    "supply": 1,
+    "supply": 0,
     "cost": 5,
     "type": "action",
     "effects": [
@@ -105,7 +105,7 @@ var blankCards = {
     ]
   },
   "smithy": {
-    "supply": 1,
+    "supply": 0,
     "cost": 4,
     "type": "action",
     "effects": [
@@ -116,7 +116,7 @@ var blankCards = {
     ]
   },
   "village": {
-    "supply": 1,
+    "supply": 0,
     "cost": 3,
     "type": "action",
     "effects": [
@@ -131,7 +131,7 @@ var blankCards = {
     ]
   },
   "woodcutter": {
-    "supply": 1,
+    "supply": 0,
     "cost": 3,
     "type": "action",
     "effects": [
@@ -146,7 +146,7 @@ var blankCards = {
     ]
   },
   "workshop": {
-    "supply": 1,
+    "supply": 0,
     "cost": 3,
     "type": "action",
     "effects": [
@@ -157,7 +157,7 @@ var blankCards = {
     ]
   },
   "councilroom": {
-    "supply": 1,
+    "supply": 0,
     "cost": 5,
     "type": "action",
     "effects": [
@@ -176,7 +176,7 @@ var blankCards = {
     ]
   },
   "laboratory": {
-    "supply": 1,
+    "supply": 0,
     "cost": 5,
     "type": "action",
     "effects": [
