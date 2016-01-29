@@ -1,0 +1,105 @@
+.cover-screen {
+  padding-top: 50px;
+  padding-bottom: 50px;
+  text-align: center;
+}
+
+header {
+
+}
+
+.container {
+  align: center;
+  max-width: 1200px;
+}
+
+.reset-game {
+  float: right;
+}
+
+.card-slot {
+  height: 200px;
+  background-color: #528fd2;
+  display: block;
+}
+
+.card-image {
+  max-height: 100%;
+  max-width: 100%;
+}
+
+#cardSelection {
+  background-color: #1e2d82;
+  height: 750px;
+}
+
+.cardField {
+  margin-top: 25px;
+  height: 700px;
+}
+
+#staticCards {
+  background-color: #4385c2;
+}
+
+  #treasureField {
+    height: 650px;
+    padding-top: 15px;
+  }
+
+  #victoryField {
+    height: 650px;
+    padding-top: 15px;
+  }
+
+  #actionField {
+  background-color: #4385c2;
+  padding-top: 15px
+  }
+
+#playerHands {
+  background-color: #1e2d82;
+  height: 500px;
+}
+
+  .turn-order {
+    background-color: #02194a;
+    display: block;
+    height: 400px;
+    margin-top: 25px;
+  }
+
+    .turn-box {
+      margin-top: 10px;
+      margin-bottom: 10px;
+      height: 65px;
+      background-color: black;
+      color: red;
+    }
+
+      .turnB {
+        height: 85px;
+      }
+
+  .draw-discard {
+    margin-top: 25px;
+    background-color: #4385c2;
+  }
+
+  .player-hand {
+    margin-top: 25px;
+    height: 400px;
+    background-color: #02194a;
+  }
+
+    .handCards {
+      max-height: 100px;
+      max-width: 100px;
+      background-color: black;
+      font-style: red;
+    }
+
+.signature {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
