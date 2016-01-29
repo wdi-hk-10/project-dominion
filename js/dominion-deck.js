@@ -2,58 +2,43 @@ var dominionCards = {
   "copper": {
     "supply": 60,
     "cost": 0,
-    "type": {
-      // I wrote it like this after doing some reading on JS Objects
-      "Treasure": true
-    },
+    "type": "treasure",
     "treasureValue": 1
   },
   "silver": {
     "supply": 40,
     "cost": 3,
-    "type": {
-      "Treasure": true
-    },
+    "type": "treasure",
     "treasureValue": 2
   },
   "gold": {
     "supply": 30,
     "cost": 6,
-    "type": {
-      "Treasure": true
-    },
+    "type": "treasure",
     "treasureValue": 3
   },
   "estate": {
     "supply": 14,
     "cost": 2,
-    "type": {
-      "Victory": true
-    },
+    "type": "victory",
     "victoryValue": 1
   },
   "duchy": {
     "supply": 8,
     "cost": 5,
-    "type": {
-      "Victory": true
-    },
+    "type": "victory",
     "victoryValue": 3
   },
   "province": {
     "supply": 8,
     "cost": 8,
-    "type": {
-      "Victory": true
-    },
+    "type": "victory",
     "victoryValue": 6
   },
   "cellar": {
     "supply": 10,
     "cost": 2,
-    "type": {
-      "Action": true
-    },
+    "type": "action",
     "effects": [
       {
         "name": "plusAction",
@@ -69,9 +54,7 @@ var dominionCards = {
   "market": {
     "supply": 10,
     "cost": 5,
-    "type": {
-      "Action": true
-    },
+    "type": "action",
     "effects": [
       {
         "name": "plusCard",
@@ -94,9 +77,7 @@ var dominionCards = {
   "throneroom": {
     "supply": 10,
     "cost": 4,
-    "type": {
-      "Action": true
-    },
+    "type": "action",
     "effects": [
       {
         "name": "playTwice",
@@ -107,9 +88,7 @@ var dominionCards = {
   "festival": {
     "supply": 10,
     "cost": 5,
-    "type": {
-      "Action": true
-    },
+    "type": "action",
     "effects": [
       {
         "name": "plusAction",
@@ -128,9 +107,7 @@ var dominionCards = {
   "smithy": {
     "supply": 10,
     "cost": 4,
-    "type": {
-      "Action": true
-    },
+    "type": "action",
     "effects": [
       {
         "name": "plusCard",
@@ -141,9 +118,7 @@ var dominionCards = {
   "village": {
     "supply": 10,
     "cost": 3,
-    "type": {
-      "Action": true
-    },
+    "type": "action",
     "effects": [
       {
         "name": "plusCard",
@@ -158,9 +133,7 @@ var dominionCards = {
   "woodcutter": {
     "supply": 10,
     "cost": 3,
-    "type": {
-      "Action": true
-    },
+    "type": "action",
     "effects": [
       {
         "name": "plusBuy",
@@ -175,9 +148,7 @@ var dominionCards = {
   "workshop": {
     "supply": 10,
     "cost": 3,
-    "type": {
-      "Action": true
-    },
+    "type": "action",
     "effects": [
       {
         "name": "upTo4",
@@ -188,9 +159,7 @@ var dominionCards = {
   "councilroom": {
     "supply": 10,
     "cost": 5,
-    "type": {
-      "Action": true
-    },
+    "type": "action",
     "effects": [
       {
         "name": "plusCard",
@@ -209,9 +178,7 @@ var dominionCards = {
   "laboratory": {
     "supply": 10,
     "cost": 5,
-    "type": {
-      "Action": true
-    },
+    "type": "action",
     "effects": [
       {
         "name": "plusCard",

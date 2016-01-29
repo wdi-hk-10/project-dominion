@@ -169,3 +169,13 @@ $(document).ready(function(){
   }
 
 });
+
+
+  // Resets the game
+  $('#reset-game').on('click', function(){
+    clearHand (p1_hand, p1_discard);
+    clearHand (p2_hand, p2_discard);
+    buttonSetup();
+    startSetup();
+    turnSetup();
+  });

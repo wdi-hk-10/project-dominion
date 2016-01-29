@@ -7,9 +7,9 @@
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-    <script src="js/dominion-deck2.js"></script>
-    <script src="js/blank-deck2.js"></script>
-    <script src="js/application2.js"></script>
+    <script src="js/dominion-deck.js"></script>
+    <script src="js/empty-deck.js"></script>
+    <script src="js/application.js"></script>
   </head>
 
   <body>
@@ -249,6 +249,21 @@
         <p class="signature">Made by Judah Frankel.  You may now applaud.</p>
       </footer>
     </section>
+
+    <div id="endGameModal" class="modal fade" tabindex="-1" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Game Over!</h4>
+          </div>
+          <div class="modal-body"></div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 
   </body>
 </html>
