@@ -113,8 +113,8 @@ $(document).ready(function(){
 
   // Resets the game
   $('#reset-game').on('click', function(){
-    clearHand (p1_hand, p1_discard);
-    clearHand (p2_hand, p2_discard);
+    !$.isEmptyObject(p1_hand) && clearHand (p1_hand, p1_discard);
+    !$.isEmptyObject(p2_hand) && clearHand (p2_hand, p2_discard);
     buttonSetup();
     startSetup();
     turnSetup();
@@ -127,7 +127,6 @@ $(document).ready(function(){
   // Step 2 binding
   // Start turn
   $('.start-turn').on('click', function(){
-    console.log("Start action phase");
     $('.start-turn').prop('disabled', true);
     if (checkHandAction(playerHand, playerDeck) === true) {
       $('.play-action').removeAttr('disabled');
@@ -145,7 +144,6 @@ $(document).ready(function(){
   // end
 
   $('.play-action').on('click', function(){
-    console.log("Play an action card");
     $('.play-action').prop('disabled', true);
     $('.pass-action').prop('disabled', true);
     actionCount--;
@@ -155,7 +153,6 @@ $(document).ready(function(){
   });
 
   $('.pass-action').on('click', function(){
-    console.log("Skip action card");
     $('.play-action').prop('disabled', true);
     $('.pass-action').prop('disabled', true);
     $('.play-buy').removeAttr('disabled');
@@ -165,7 +162,6 @@ $(document).ready(function(){
 
   // Step 4 binding - buy
   $('.play-buy').on('click', function(){
-    console.log("Buy a card");
     $('.play-buy').prop('disabled', true);
     $('.pass-buy').prop('disabled', true);
 
@@ -192,7 +188,6 @@ $(document).ready(function(){
   });
 
   $('.pass-buy').on('click', function(){
-    console.log("Don't buy a card");
     $('.play-buy').prop('disabled', true);
     $('.pass-buy').prop('disabled', true);
     $('.play-cleanup').removeAttr('disabled');
@@ -200,7 +195,6 @@ $(document).ready(function(){
 
   // Step 5 binding - cleanup
   $('.play-cleanup').on('click', function(){
-    console.log("Discard your hand");
     clearHand(playerHand, playerDiscard);
     $('.play-cleanup').prop('disabled', true);
     $('.play-draw').removeAttr('disabled');
@@ -209,9 +203,8 @@ $(document).ready(function(){
   // Step 6 binding - draw new hand
   $('.play-draw').on('click', function(){
     $('.play-draw').prop('disabled', true);
-    console.log("Draw five new cards");
     if (dominionShop["province"].supply == 0) {
-      endGame();
+      endgame();
     } else {
       drawHand(playerDeck);
       $('.end-turn').removeAttr('disabled');
@@ -236,9 +229,10 @@ $(document).ready(function(){
   var p1score = 0;
   var p2score = 0;
   var winner = '';
-  function endgame() {
-    clearHand (p1_hand, p1_discard);
-    clearHand (p2_hand, p2_discard);
+  window.endgame = function(){
+  // function endgame() {
+    !$.isEmptyObject(p1_hand) && clearHand (p1_hand, p1_discard);
+    !$.isEmptyObject(p2_hand) && clearHand (p2_hand, p2_discard);
     discardMerge (p1_discard, p1_deck);
     discardMerge (p2_discard, p2_deck);
     p1score = findDeckVictory(p1_deck);
@@ -342,8 +336,7 @@ $(document).ready(function(){
   }
 
   // Discards every card
-  function clearHand(playerHand){
-    console.log(playerHand);
+  function clearHand(playerHand, playerDiscard){
     playerHand.find('.handCards').each(function(index, elem){
       var cardName = $(elem).data('name');
       discardCard(elem, cardName, playerDiscard);
@@ -368,7 +361,7 @@ $(document).ready(function(){
   function findDeckVictory(playerDeck) {
     var totalScore = 0;
     for (var key in playerDeck) {
-      if (playerDeck[cardName].type == "treasure") {
+      if (playerDeck[key].type == "treasure") {
         totalScore += (playerDeck[key].amount * playerDeck[key].supply);
       }
     }
