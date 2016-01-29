@@ -65,7 +65,7 @@ header {
   .turn-order {
     background-color: #02194a;
     display: block;
-    height: 400px;
+    height: 420px;
     margin-top: 25px;
   }
 
@@ -78,18 +78,19 @@ header {
     }
 
       .turnB {
-        height: 85px;
+        height: 95px;
       }
 
   .draw-discard {
     margin-top: 25px;
     background-color: #4385c2;
     text-align: center;
+    height: 420px;
   }
 
   .player-hand {
     margin-top: 25px;
-    height: 400px;
+    height: 420px;
     background-color: #02194a;
   }
 
