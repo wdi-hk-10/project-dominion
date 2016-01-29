@@ -111,23 +111,19 @@ $(document).ready(function(){
   $('.start-turn').on('click', function(){
     console.log("Start action phase");
     $('.start-turn').prop('disabled', true);
-    // if (/* there are no action cards in the player's hand */) {
-    //   $('.pass-action').removeAttr('disabled');
-    // } else {
+    if (checkHandAction(playerHand, playerDeck) === true) {
       $('.play-action').removeAttr('disabled');
-      $('.pass-action').removeAttr('disabled');
-    // }
+    }
+    $('.pass-action').removeAttr('disabled');
   });
 
   // Step 3 binding
   // if click on action
     // choose action card
-    // action count --
-    // if action count == 0
+    // actionCount--;
+    // $('.actionPoints').text('Action Points: ' + actionCount);
+    // if (actionCount == 0) {
       // go to 4
-    // end
-  // else if click on pass
-    // go to 4
   // end
 
   $('.play-action').on('click', function(){
@@ -144,38 +140,34 @@ $(document).ready(function(){
     $('.pass-action').prop('disabled', true);
     $('.play-buy').removeAttr('disabled');
     $('.pass-buy').removeAttr('disabled');
+    countHandTreasure(playerHand, playerDeck, playerDiscard);
   });
 
   // Step 4 binding - buy
-  // $('.buy-button).forEach()
-    // if (buy-button[key].data(cost)) <= treasureCount
-    // && if ($('.buy-button[data-name=" + key + "]').data('type'))!=="action"
-      // activate buy-button
-
   $('.play-buy').on('click', function(){
     console.log("Buy a card");
     $('.play-buy').prop('disabled', true);
     $('.pass-buy').prop('disabled', true);
-    countHandTreasure(playerHand, playerDeck, playerDiscard);
 
     var $elems = $('.buy-button');
     $elems.each(function(index, elem){
-      if ($(elem).data('cost') <= treasureCount && $(elem).type !== "action") {
+      if ($(elem).data('cost') <= treasureCount && $(elem).data("type") !== "action") {
         $(elem).removeAttr('disabled');
       }
-    })
+    });
   });
 
-  // Step 4.5 binding
+  // Step 4.5 binding - individual buy buttons
   $('.buy-button').on('click', function(){
     buyCard(this, playerDiscard);
     buyCount--;
+    $('.buyPoints').text('Buy Points: ' + buyCount);
     $('.buy-button').prop('disabled', true);
     if (buyCount > 0) {
       $('.play-buy').removeAttr('disabled');
       $('.pass-buy').removeAttr('disabled');
     } else {
-      $('.cleanup').removeAttr('disabled');
+      $('.play-cleanup').removeAttr('disabled');
     }
   });
 
@@ -196,18 +188,20 @@ $(document).ready(function(){
 
   // Step 6 binding - draw new hand
   $('.play-draw').on('click', function(){
-    console.log("Draw five new cards");
-    drawHand(playerDeck);
     $('.play-draw').prop('disabled', true);
-    $('.end-turn').removeAttr('disabled');
+    console.log("Draw five new cards");
+    if (dominionShop["province"].supply == 0) {
+      endGame();
+    } else {
+      drawHand(playerDeck);
+      $('.end-turn').removeAttr('disabled');
+    }
   });
 
   // Step 7 binding - end turn
   $('.end-turn').on('click', function() {
     $('.end-turn').prop('disabled', true);
-    if (dominionShop["province"].supply == 0) {
-      endGame();
-    } else if(playerTurn === true) {
+    if(playerTurn === true) {
       $('#playerHands a:last').tab('show');
       playerTurn = false;
     } else {
@@ -218,30 +212,25 @@ $(document).ready(function(){
     turnSetup();
   });
 
-  // Step 8 binding
-  // var p1score = 0;
-  // var p2score = 0;
-  // var winner = '';
-  // function endgame() {
-  //   merge p1 draw & discard
-  //   merge p2 draw & discard
-  //   (p1 deck).forEach {
-  //     if $(this[data-name="estate"]).data('type') == "victory" {
-  //       p1score += $(this[data-name="estate"]).data('victoryValue')
-  //     }
-  //   }
-  //   (p2 deck).forEach {
-  //     if $(this[data-name="estate"]).data('type') == "victory" {
-  //       p2score += $(this[data-name="estate"]).data('victoryValue')
-  //     }
-  //   }
-  //   if p1score > p2score {
-  //     winner = 'Player 1';
-  //   } else {
-  //     winner = 'Player 2';
-  //   }
-  //   trigger endgame window
-  // }
+  // Step 8 binding -endgame
+  var p1score = 0;
+  var p2score = 0;
+  var winner = '';
+  function endgame() {
+    clearHand (p1_hand, p1_discard);
+    clearHand (p2_hand, p2_discard);
+    discardMerge (p1_discard, p1_deck);
+    discardMerge (p2_discard, p2_deck);
+    p1score = findDeckVictory(p1_deck);
+    p2score = findDeckVictory(p2_deck);
+
+    if (p1score > p2score) {
+      winner = 'Player 1';
+    } else {
+      winner = 'Player 2';
+    }
+    // trigger endgame window
+  }
 
 
   // Card Management Functions
@@ -300,6 +289,18 @@ $(document).ready(function(){
     }
   }
 
+  // Checks to see if there are any action cards in the player's hand
+  function checkHandAction(playerHand, playerDeck) {
+    var actionPresent = false;
+    playerHand.find('.handCards').each(function(index, elem){
+      var cardName = $(elem).data('name');
+      if (playerDeck[cardName].type == "action") {
+        actionPresent = true;
+      }
+    });
+    return actionPresent;
+  }
+
   // Calculates the value of the treasure cards in the player's hand
   function countHandTreasure(playerHand, playerDeck, playerDiscard) {
     playerHand.find('.handCards').each(function(index, elem){
@@ -332,6 +333,17 @@ $(document).ready(function(){
       playerDeck[key].supply += playerDiscard[key].supply;
       playerDiscard[key].supply = 0;
     }
+  }
+
+  // Returns the total point value of all the victory cards in the player's deck
+  function findDeckVictory(playerDeck) {
+    var totalScore = 0;
+    for (var key in playerDeck) {
+      if (playerDeck[cardName].type == "treasure") {
+        totalScore += (playerDeck[key].amount * playerDeck[key].supply);
+      }
+    }
+    return totalScore;
   }
 
 });
